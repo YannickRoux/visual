@@ -13,6 +13,10 @@ namespace Projet_01
         SpriteBatch spriteBatch;
         GameObject hero;
         Rectangle fenetre;
+        GameObject ennemi;
+        GameObject test;
+        GameObject carrot;
+
 
         public Game1()
         {
@@ -46,12 +50,29 @@ namespace Projet_01
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
+
             hero = new GameObject();
             hero.estVivant = true;
             hero.position.X = 800;
             hero.position.Y = 450;
             hero.sprite = Content.Load<Texture2D>("personnage.png");
 
+            ennemi = new GameObject();
+            ennemi.estVivant = true;
+            ennemi.position.X = 30;
+            ennemi.position.Y = 30;
+            ennemi.sprite = Content.Load<Texture2D>("ennemi");
+
+            test = new GameObject();
+            test.position.X = -100;
+            test.position.Y = -100;
+            test.estVivant = true;
+
+            carrot = new GameObject();
+            carrot.position.X = ennemi.position.X;
+            carrot.position.Y = ennemi.position.Y;
+            carrot.sprite = Content.Load<Texture2D>("carrot.png");
+            carrot.estVivant = true;
             // TODO: use this.Content to load your game content here
         }
 
@@ -74,16 +95,54 @@ namespace Projet_01
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            if (Keyboard.GetState().IsKeyDown(Keys.A))
-                hero.position.X -= 2;
+            if (Keyboard.GetState().IsKeyDown(Keys.A)|| Keyboard.GetState().IsKeyDown(Keys.Left))
+                hero.position.X -= 4;
 
-            if (Keyboard.GetState().IsKeyDown(Keys.D))
-                hero.position.X += 2;
+            if (Keyboard.GetState().IsKeyDown(Keys.D)|| Keyboard.GetState().IsKeyDown(Keys.Right))
+                hero.position.X += 4;
 
-            if (Keyboard.GetState().IsKeyDown(Keys.W))
-                hero.position.Y -= 2;
-            if (Keyboard.GetState().IsKeyDown(Keys.S))
-                hero.position.Y += 2;
+            if (Keyboard.GetState().IsKeyDown(Keys.W)|| Keyboard.GetState().IsKeyDown(Keys.Up))
+                hero.position.Y -= 4;
+            if (Keyboard.GetState().IsKeyDown(Keys.S)|| Keyboard.GetState().IsKeyDown(Keys.Down))
+                hero.position.Y += 4;
+
+            if (hero.position.X < -150)
+                hero.position.X = -150;
+            if (hero.position.X > fenetre.Width-200)
+                hero.position.X = fenetre.Width-200;
+            if (hero.position.Y < -150)
+                hero.position.Y = -150;
+            if (hero.position.Y > fenetre.Height-250)
+                hero.position.Y = fenetre.Height-250;
+
+
+            if (test.estVivant == true)
+                ennemi.position.X += 15;
+
+            if (test.estVivant == false)
+                ennemi.position.X += -15;
+
+            if (ennemi.position.X >= fenetre.Width)
+                test.estVivant = false;
+
+            if (ennemi.position.X <= 0)
+                test.estVivant = true;
+
+            if(carrot.estVivant == true)
+            {
+                carrot.position.Y += 20;
+            }
+            if(carrot.position.Y > fenetre.Height)
+            {
+                carrot.position.X = ennemi.position.X;
+                carrot.position.Y = ennemi.position.Y;
+            }
+
+            if (hero.GetRect().Intersects(carrot.GetRect()))
+            {
+                hero.estVivant = false;
+            }
+
 
             // TODO: Add your update logic here
 
@@ -99,32 +158,12 @@ namespace Projet_01
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin();
 
-            spriteBatch.Draw(hero.sprite, hero.position, Color.White);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            if (hero.estVivant == true)
+            {
+                spriteBatch.Draw(hero.sprite, hero.position, Color.White);
+            }
+            spriteBatch.Draw(ennemi.sprite, ennemi.position, Color.White);
+            spriteBatch.Draw(carrot.sprite, carrot.position, Color.White);
 
             spriteBatch.End();
 

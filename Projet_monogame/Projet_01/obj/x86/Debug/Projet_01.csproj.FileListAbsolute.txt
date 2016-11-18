@@ -20,7 +20,9 @@ C:\Users\Utilisateur\Documents\GitHub\visual\Projet_monogame\Projet_01\bin\Windo
 C:\Users\Utilisateur\Documents\GitHub\visual\Projet_monogame\Projet_01\bin\Windows\x86\Debug\SharpDX.XInput.xml
 C:\Users\Utilisateur\Documents\GitHub\visual\Projet_monogame\Projet_01\bin\Windows\x86\Debug\SharpDX.RawInput.xml
 C:\Users\Utilisateur\Documents\GitHub\visual\Projet_monogame\Projet_01\bin\Windows\x86\Debug\SharpDX.Direct3D9.xml
-C:\Users\Utilisateur\Documents\GitHub\visual\Projet_monogame\Projet_01\obj\x86\Debug\Projet_01.csprojResolveAssemblyReference.cache
 C:\Users\Utilisateur\Documents\GitHub\visual\Projet_monogame\Projet_01\obj\x86\Debug\Projet_01.exe
 C:\Users\Utilisateur\Documents\GitHub\visual\Projet_monogame\Projet_01\obj\x86\Debug\Projet_01.pdb
 C:\Users\Utilisateur\Documents\GitHub\visual\Projet_monogame\Projet_01\bin\Windows\x86\Debug\Content\personnage.png
+C:\Users\Utilisateur\Documents\GitHub\visual\Projet_monogame\Projet_01\bin\Windows\x86\Debug\Content\ennemi.png
+C:\Users\Utilisateur\Documents\GitHub\visual\Projet_monogame\Projet_01\obj\x86\Debug\Projet_01.csprojResolveAssemblyReference.cache
+C:\Users\Utilisateur\Documents\GitHub\visual\Projet_monogame\Projet_01\bin\Windows\x86\Debug\Content\carrot.png

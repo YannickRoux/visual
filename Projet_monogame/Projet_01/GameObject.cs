@@ -13,7 +13,17 @@ namespace Projet_01
         public bool estVivant;
         public Texture2D sprite;
         public Vector2 position;
-        public Vector2 vitesse;
+        public Rectangle Rectcollision = new Rectangle();
 
+        public Rectangle GetRect()
+        {
+            Rectcollision.X = (int)this.position.X;
+            Rectcollision.Y = (int)this.position.Y;
+            Rectcollision.Width = this.sprite.Width;
+            Rectcollision.Height = this.sprite.Height;
+            return Rectcollision;
+        }
+
+        
     }
 }

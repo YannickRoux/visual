@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using Projet2;
 using System;
 
@@ -15,11 +16,17 @@ namespace Projet2
         SpriteBatch spriteBatch;
         GameObject hero;
         Rectangle fenetre;
-        GameObject ennemi;
+        GameObject[] ennemi = new GameObject[5];
         GameObject test;
         GameObject test2;
         GameObject carrot;
+        GameObject tru;
+        GameObject dir;
+        SpriteFont font;
         Random r = new Random();
+        float timer;
+
+
 
 
         public Game1()
@@ -57,15 +64,20 @@ namespace Projet2
 
             hero = new GameObject();
             hero.estVivant = true;
-            hero.position.X = 800;
-            hero.position.Y = 450;
+            hero.position.X = 0;
+            hero.position.Y = 0;
             hero.sprite = Content.Load<Texture2D>("hero.png");
 
-            ennemi = new GameObject();
-            ennemi.estVivant = true;
-            ennemi.position.X = fenetre.Width - 250;
-            ennemi.position.Y = 0;
-            ennemi.sprite = Content.Load<Texture2D>("ennemi");
+            for (int i = 0; i < ennemi.Length; i++)
+            {
+                ennemi[i] = new GameObject();
+                ennemi[i].estVivant = true;
+                ennemi[i].position.X = fenetre.Width - 250;
+                ennemi[i].position.Y = 0;
+                ennemi[i].sprite = Content.Load<Texture2D>("ennemi");
+                ennemi[i].direction.X = r.Next(-5, -2);
+                ennemi[i].direction.Y = r.Next(2, 5);
+            }
 
             test = new GameObject();
             test.position.X = -100;
@@ -78,10 +90,26 @@ namespace Projet2
             test2.estVivant = true;
 
             carrot = new GameObject();
-            carrot.position.X = ennemi.position.X;
-            carrot.position.Y = ennemi.position.Y;
+            for (int i = 0; i < ennemi.Length; i++)
+            {
+                carrot.position.X = ennemi[i].position.X;
+                carrot.position.Y = ennemi[i].position.Y;
+            }
             carrot.sprite = Content.Load<Texture2D>("proj.png");
             carrot.estVivant = true;
+
+            tru = new GameObject();
+            tru.estVivant = true;
+
+            dir = new GameObject();
+            dir.estVivant = true;
+
+            Song song = Content.Load<Song>("Sounds\\Creepy-doll-music");
+            MediaPlayer.Play(song);
+
+
+            font = Content.Load<SpriteFont>("Font");
+
             // TODO: use this.Content to load your game content here
         }
 
@@ -101,7 +129,8 @@ namespace Projet2
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+
+                if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
             if (Keyboard.GetState().IsKeyDown(Keys.A) || Keyboard.GetState().IsKeyDown(Keys.Left))
@@ -115,53 +144,38 @@ namespace Projet2
             if (Keyboard.GetState().IsKeyDown(Keys.S) || Keyboard.GetState().IsKeyDown(Keys.Down))
                 hero.position.Y += 4;
 
-            if (hero.position.X < -150)
-                hero.position.X = -150;
-            if (hero.position.X > fenetre.Width - 200)
-                hero.position.X = fenetre.Width - 200;
-            if (hero.position.Y < -150)
-                hero.position.Y = -150;
+            if (hero.position.X < -30)
+                hero.position.X = -30;
+            if (hero.position.X > fenetre.Width - 100)
+                hero.position.X = fenetre.Width - 100;
+            if (hero.position.Y < -30)
+                hero.position.Y = -30;
             if (hero.position.Y > fenetre.Height - 250)
                 hero.position.Y = fenetre.Height - 250;
 
-            if(ennemi.position.X < -50)
+            for (int i = 0; i < ennemi.Length; i++)
             {
-                ennemi.position.X = -50;
-                test.estVivant = true;
-            }
-            if(ennemi.position.X > fenetre.Width - 200)
-            {
-                ennemi.position.X = fenetre.Width - 200;
-                test.estVivant = false;
-            }
-            if(ennemi.position.Y < -50)
-            {
-                ennemi.position.Y = -50;
-                test2.estVivant = true;
-            }
-            if(ennemi.position.Y > fenetre.Height - 250)
-            {
-                ennemi.position.Y = fenetre.Height - 250;
-                test2.estVivant = false;
-            }
-
-            if(test.estVivant == true)
-            {
-                ennemi.position.X += r.Next(1, 5);
-            }
-            if(test.estVivant == false)
-            {
-                ennemi.position.X -= r.Next(1, 5);
-            }
-            if(test2.estVivant == true)
-            {
-                ennemi.position.Y += r.Next(1, 5);
-            }
-            if(test2.estVivant == false)
-            {
-                ennemi.position.Y -= r.Next(1, 5);
+                if(ennemi[i].position.X < -30)
+                {
+                    ennemi[i].direction.X = r.Next(2, 5);
+                }
+                else if(ennemi[i].position.X > fenetre.Width - 50)
+                {
+                    ennemi[i].direction.X = r.Next(-5, -2);
+                }
+                else if(ennemi[i].position.Y < -50)
+                {
+                    ennemi[i].direction.Y = r.Next(2, 5);
+                }
+                else if(ennemi[i].position.Y > fenetre.Height - 180)
+                {
+                    ennemi[i].direction.Y = r.Next(-5, -2);
+                }
+                ennemi[i].position.X += ennemi[i].direction.X;
+                ennemi[i].position.Y += ennemi[i].direction.Y;
             }
 
+            
 
             if (carrot.estVivant == true)
             {
@@ -169,18 +183,18 @@ namespace Projet2
             }
             if (carrot.position.Y > fenetre.Height)
             {
-                carrot.position.X = ennemi.position.X;
-                carrot.position.Y = ennemi.position.Y;
+                for (int i = 0; i < ennemi.Length; i++)
+                {
+                    carrot.position.X = ennemi[i].position.X;
+                    carrot.position.Y = ennemi[i].position.Y;
+                }
             }
 
             if (hero.GetRect().Intersects(carrot.GetRect()))
             {
                 hero.estVivant = false;
             }
-
-
             // TODO: Add your update logic here
-
             base.Update(gameTime);
         }
 
@@ -190,20 +204,50 @@ namespace Projet2
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            if (tru.estVivant == true)
+            {
+                GraphicsDevice.Clear(Color.White);
+                tru.estVivant = false;
+            }
+            else
+            {
+                GraphicsDevice.Clear(Color.Black);
+                tru.estVivant = true;
+            }
             spriteBatch.Begin();
 
             if (hero.estVivant == true)
             {
                 spriteBatch.Draw(hero.sprite, hero.position, Color.White);
+                timer = (float)gameTime.TotalGameTime.Seconds;
+
             }
-            spriteBatch.Draw(ennemi.sprite, ennemi.position, Color.White);
-            spriteBatch.Draw(carrot.sprite, carrot.position, Color.White);
+            else
+            {
+                GraphicsDevice.Clear(Color.Red);
+                for (int i = 0; i < ennemi.Length; i++)
+                {
+                    ennemi[i].estVivant = false;
+                }
+                carrot.estVivant = false;
+                spriteBatch.DrawString(font, "This is the end!!!", new Vector2(650, 450), Color.Blue);
+                spriteBatch.DrawString(font, "Temps perdu a jouer: " + timer + " secondes", new Vector2(540, 500), Color.Green);
+            }
+            for (int i = 0; i < ennemi.Length; i++)
+            {
+                if (ennemi[i].estVivant == true)
+                {
+                    spriteBatch.Draw(ennemi[i].sprite, ennemi[i].position, Color.White);
+                }
+            }
+            if (carrot.estVivant)
+            {
+                spriteBatch.Draw(carrot.sprite, carrot.position, Color.White);
+            }
 
             spriteBatch.End();
 
             // TODO: Add your drawing code here
-
             base.Draw(gameTime);
         }
     }

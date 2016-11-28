@@ -26,3 +26,7 @@ C:\Users\Utilisateur\Documents\GitHub\visual\Projet_monogame\Projet2\bin\Windows
 C:\Users\Utilisateur\Documents\GitHub\visual\Projet_monogame\Projet2\obj\x86\Debug\Projet2.exe
 C:\Users\Utilisateur\Documents\GitHub\visual\Projet_monogame\Projet2\obj\x86\Debug\Projet2.pdb
 C:\Users\Utilisateur\Documents\GitHub\visual\Projet_monogame\Projet2\obj\x86\Debug\Projet2.csprojResolveAssemblyReference.cache
+C:\Users\Utilisateur\Documents\GitHub\visual\Projet_monogame\Projet2\bin\Windows\x86\Debug\Content\Font.xnb
+C:\Users\Utilisateur\Documents\GitHub\visual\Projet_monogame\Projet2\bin\Windows\x86\Debug\Content\Sounds\Creepy-doll-music.wma
+C:\Users\Utilisateur\Documents\GitHub\visual\Projet_monogame\Projet2\bin\Windows\x86\Debug\Content\Sounds\Creepy-doll-music.xnb
+C:\Users\Utilisateur\Documents\GitHub\visual\Projet_monogame\Projet2\bin\Windows\x86\Debug\Content\Creepy-doll-music.wav
